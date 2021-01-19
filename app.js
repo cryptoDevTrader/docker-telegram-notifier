@@ -32,7 +32,7 @@ async function sendVersion() {
   const version = await docker.version();
   const dockerHost = process.env.DOCKER_HOSTNAME;
   const dockerIp = process.env.DOCKER_IP_ADDRESS;
-  let text = `Connected to ${dockerHost} (${dockerIp}) with docker ${version.Version} ${version.Arch}`;
+  let text = `Connected to ${dockerHost} at ${dockerIp} with docker ${version.Version} ${version.Arch}`;
   console.log(text, "\n");
   await telegram.send(text);
 }
