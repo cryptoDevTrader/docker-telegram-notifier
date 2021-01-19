@@ -31,7 +31,7 @@ async function sendEventStream() {
 async function sendVersion() {
   const version = await docker.version();
   const info = await docker.info();
-  let text = `Connected to docker ${version.Version} ${version.Arch}`;
+  let text = `Connected to process.env.DOCKER_HOSTNAME (process.env.DOCKER_IP_ADDRESS) with docker ${version.Version} ${version.Arch}`;
   console.log(text, "\n");
   await telegram.send(text);
 }
