@@ -92,3 +92,9 @@ services:
     restart: unless-stopped
 ```
 For docker-compose examples see comments in [docker-compose.yml](./docker-compose.yml) file.
+
+## Credits
+
+[arefaslani](https://github.com/arefaslani) for original idea.
+[poma](https://github.com/poma) for reworking the original version and move it to alpine image.
+[monkeber](https://github.com/monkeber) for help and implementation of idea with variables according to my thoughts, thanks homie.
