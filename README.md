@@ -1,6 +1,6 @@
 # Docker Telegram Notifier [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/soulassassin85/docker-telegram-notifier.svg)](https://hub.docker.com/r/soulassassin85/docker-telegram-notifier/builds)
 
-A Telegram integration to notify Docker events. This service notifies about container `start`, `stop`, `restart` events, and changes of Docker healthcheck status. If you wish you can add more event notifications in `templates.js` file.
+A Telegram integration to notify Docker events from <b>multiple</b> docker hosts and <b>one</b> telegram bot. This service notifies about container `start`, `stop`, `restart` events, changes of Docker healthcheck status, and to which host and ip-address it connects, on which architecture and version the docker engine runs. If you wish you can add more event notifications in `templates.js` file see the section on templates.
 
 ## How to Run
 
