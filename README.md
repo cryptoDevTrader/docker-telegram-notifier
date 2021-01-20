@@ -95,6 +95,6 @@ For docker-compose examples see comments in [docker-compose.yml](./docker-compos
 
 ## Credits
 
-[arefaslani](https://github.com/arefaslani) for original idea.
-[poma](https://github.com/poma) for reworking the original version and move it to alpine image.
+[arefaslani](https://github.com/arefaslani) for original idea.<br>
+[poma](https://github.com/poma) for reworking the original version and move it to alpine image.<br>
 [monkeber](https://github.com/monkeber) for help and implementation of idea with variables according to my thoughts, thanks homie.
