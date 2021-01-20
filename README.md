@@ -9,8 +9,11 @@ A Telegram integration to notify Docker events. This service notifies about cont
 Run a container as follows:
 
 ```sh
-# Docker
+# local
 docker run -d --env TELEGRAM_NOTIFIER_BOT_TOKEN=token --env TELEGRAM_NOTIFIER_CHAT_ID=chat_id --env DOCKER_HOSTNAME=raspberry --env DOCKER_IP_ADDRESS=192.168.0.2 --volume /var/run/docker.sock:/var/run/docker.sock:ro soulassassin85/docker-telegram-notifier
+
+# remote
+docker run -d --env TELEGRAM_NOTIFIER_BOT_TOKEN=token --env TELEGRAM_NOTIFIER_CHAT_ID=chat_id --env DOCKER_HOSTNAME=raspberry --env DOCKER_IP_ADDRESS=192.168.0.2 --env DOCKER_HOST=tcp://192.168.0.19:2375 soulassassin85/docker-telegram-notifier
 
 # Docker Compose
 curl -O https://raw.githubusercontent.com/soulassassin85/docker-telegram-notifier/master/docker-compose.yml
@@ -40,11 +43,11 @@ Notifier accepts usual `DOCKER_HOST` and `DOCKER_CERT_PATH` environment variable
 Tutorial on how to generate docker certs can be found [here](https://docs.docker.com/engine/security/https/)
 
 Also with the help of additional variables you can distinguish your hosts:
-
 ```
 DOCKER_HOSTNAME=MyServer
 DOCKER_IP_ADDRESS=192.168.0.20
 ```
+These variables are arbitrary and serve to add additional clarifying information that you will see in messages from telegram bot.
 
 ## Supported Architectures
 
