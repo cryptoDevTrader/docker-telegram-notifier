@@ -53,6 +53,44 @@ These variables are arbitrary and serve to add additional clarifying information
 
 This image only supports work in the ```amd64``` environment.
 
+## Templates of bot messages
+
+The message templates are located in [templates.js](./templates.js) file and you can customize them if you want.
+
+The default template now looks like this:
+
+for start of container
+```
+<b>Host:</b> ${utils.getEnvVar("DOCKER_HOSTNAME")}
+<b>IP:</b> ${utils.getEnvVar("DOCKER_IP_ADDRESS")}
+<b>Container:</b> ${e.Actor.Attributes.name}\n
+<b>Image:</b> ${e.Actor.Attributes.image}\n
+<b>Has been started</b>
+---
+Host: adguard-pve
+IP: 192.168.0.19
+Container: adguard
+Image: adguard/adguardhome:edge
+Has been started
+```
+for stop of container
+```
+<b>Host:</b> ${utils.getEnvVar("DOCKER_HOSTNAME")}
+<b>IP:</b> ${utils.getEnvVar("DOCKER_IP_ADDRESS")}
+<b>Container:</b> ${e.Actor.Attributes.name}
+<b>Image:</b> ${e.Actor.Attributes.image}
+<b>Has been stopped</b>\n<b>Exit Code:</b>
+${e.Actor.Attributes.exitCode}
+---
+Host: adguard-pve
+IP: 192.168.0.19
+Container: adguard
+Image: adguard/adguardhome:edge
+Has been stopped
+Exit Code: 0
+```
+As I find free time, I plan to finalize the templates, including notifications about healthy and unhealthy status. You can suggest your own version.
+
 ## docker-compose
 
 Here is example of stack:
@@ -111,4 +149,5 @@ For docker-compose examples see comments in [docker-compose.yml](./docker-compos
 
 [arefaslani](https://github.com/arefaslani) for original idea.<br>
 [poma](https://github.com/poma) for reworking the original version and move it to alpine image.<br>
+[DB Tech](https://www.youtube.com/c/DBTechYT/about) for making a video review of this notifier, thanks buddy.<br>
 [monkeber](https://github.com/monkeber) for help and implementation of idea with variables according to my thoughts, thanks homie.
