@@ -31,15 +31,15 @@ async function sendEventStream() {
 
 async function sendVersion() {
   const version = await docker.version();
-
+  
   let hostDetails = "";
   if (utils.getEnvVar("DOCKER_HOSTNAME")) {
     hostDetails = `${utils.getEnvVar("DOCKER_HOSTNAME")} (${utils.getEnvVar("DOCKER_IP_ADDRESS")}) with docker `;
   }
-
+  
   let text = `Connected to ${hostDetails} ${version.Version} ${version.Arch}`;
   console.log(text, "\n");
-
+  
   await telegram.send(text);
 }
 
