@@ -49,7 +49,9 @@ Here is example of stack:
 
 ```
 version: 2
+
 services:
+
 # local docker instance
   telegram-notifier-local:
     image: soulassassin85/docker-telegram-notifier
@@ -64,7 +66,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped
-# remote docker instance    
+
+# remote docker instance #1
   telegram-notifier-adguard:
     image: soulassassin85/docker-telegram-notifier
     container_name: telegram-notifier-adguard
@@ -76,10 +79,9 @@ services:
       - DOCKER_HOST=tcp://192.168.0.19:2375
       - TELEGRAM_NOTIFIER_BOT_TOKEN=YOUR_BOT_TOKEN_HERE
       - TELEGRAM_NOTIFIER_CHAT_ID=YOUR_CHAT_ID_HERE
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped
-# remote docker instance 
+
+# remote docker instance #2
   telegram-notifier-rpi-zb-gw-stage:
     image: soulassassin85/docker-telegram-notifier
     container_name: telegram-notifier-rpi-zb-gw-stage
@@ -91,11 +93,9 @@ services:
       - DOCKER_HOST=tcp://192.168.0.27:2375
       - TELEGRAM_NOTIFIER_BOT_TOKEN=YOUR_BOT_TOKEN_HERE
       - TELEGRAM_NOTIFIER_CHAT_ID=YOUR_CHAT_ID_HERE
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped
 ```
-For docker-compose examples see comments in [docker-compose.yml](./docker-compose.yml) file.
+For docker-compose examples see comments in [docker-compose.yml](./docker-compose.yml) file also.
 
 ## Credits
 
