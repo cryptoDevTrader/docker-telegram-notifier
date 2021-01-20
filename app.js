@@ -34,7 +34,7 @@ async function sendVersion() {
   
   let hostDetails = "";
   if (utils.getEnvVar("DOCKER_HOSTNAME")) {
-    hostDetails = `${utils.getEnvVar("DOCKER_HOSTNAME")} (${utils.getEnvVar("DOCKER_IP_ADDRESS")}) with docker `;
+    hostDetails = `${utils.getEnvVar("DOCKER_HOSTNAME")} (${utils.getEnvVar("DOCKER_IP_ADDRESS")}) with docker`;
   }
   
   let text = `Connected to ${hostDetails} ${version.Version} ${version.Arch}`;
