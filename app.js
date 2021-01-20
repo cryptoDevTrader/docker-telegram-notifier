@@ -38,7 +38,7 @@ async function sendVersion() {
   }
 
   if (utils.getEnvVar("DOCKER_IP_ADDRESS").length > 0) {
-    hostDetails += `(${utils.getEnvVar("DOCKER_IP_ADDRESS")}) `;
+    hostDetails += `@${utils.getEnvVar("DOCKER_IP_ADDRESS")} `;
   }
 
   if (hostDetails.length > 0) {
