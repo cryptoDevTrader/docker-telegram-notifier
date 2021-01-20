@@ -1,3 +1,4 @@
+const utils = require('./utils');
 const Docker = require('dockerode');
 const TelegramClient = require('./telegram');
 const JSONStream = require('JSONStream');
@@ -30,10 +31,15 @@ async function sendEventStream() {
 
 async function sendVersion() {
   const version = await docker.version();
-  const dockerHost = process.env.DOCKER_HOSTNAME;
-  const dockerIp = process.env.DOCKER_IP_ADDRESS;
-  let text = `Connected to ${dockerHost} at ${dockerIp} with docker ${version.Version} ${version.Arch}`;
+  
+  let hostDetails = "";
+  if (utils.getEnvVar("DOCKER_HOSTNAME")) {
+    hostDetails = `${utils.getEnvVar("DOCKER_HOSTNAME")} (${utils.getEnvVar("DOCKER_IP_ADDRESS")}) with docker `;
+  }
+  
+  let text = `Connected to ${hostDetails} ${version.Version} ${version.Arch}`;
   console.log(text, "\n");
+  
   await telegram.send(text);
 }
 
