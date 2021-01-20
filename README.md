@@ -33,7 +33,7 @@ It looks like this:
 
 ## Container tags
 
-The ```master branch``` aka ```latest``` tag
+The ```master branch``` aka ```latest``` tag<br>
 The ```develop branche``` aka ```dev``` tag
 
 ## Blacklist and Whitelist
