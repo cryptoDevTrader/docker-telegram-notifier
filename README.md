@@ -22,6 +22,8 @@ You can receive a docker events notification from multiple docker-telegram-notif
 
 Added two variables DOCKER_HOSTNAME and DOCKER_IP_ADDRESS to specify the HOST and its IP-ADDRESS subsequently these variables are passed to the telegram message  template, as well as to the connection string to the remote or local docker instance.
 
+The architecture tag was added to the connection string on which the docker engine runs: like amd64, arm and etc.
+
 It looks like this:
 
 <img src="https://github.com/SAOPP/docker-telegram-notifier/blob/master/20210120-102335.png">
