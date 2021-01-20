@@ -10,7 +10,7 @@ Run a container as follows:
 
 ```sh
 # Docker
-docker run -d --env TELEGRAM_NOTIFIER_BOT_TOKEN=token --env TELEGRAM_NOTIFIER_CHAT_ID=chat_id --volume /var/run/docker.sock:/var/run/docker.sock:ro soulassassin85/docker-telegram-notifier
+docker run -d --env TELEGRAM_NOTIFIER_BOT_TOKEN=token --env TELEGRAM_NOTIFIER_CHAT_ID=chat_id --env DOCKER_HOSTNAME=raspberry --env DOCKER_IP_ADDRESS=192.168.0.2 --volume /var/run/docker.sock:/var/run/docker.sock:ro soulassassin85/docker-telegram-notifier
 
 # Docker Compose
 curl -O https://raw.githubusercontent.com/soulassassin85/docker-telegram-notifier/master/docker-compose.yml
@@ -20,7 +20,7 @@ docker-compose up -d
 
 You can receive a docker events notification from multiple docker-telegram-notifier instances to your 1 telegram bot.
 
-Added two variables DOCKER_HOSTNAME and DOCKER_IP_ADDRESS to specify the HOST and its IP-ADDRESS subsequently these variables are passed to the telegram message  template, as well as to the connection string to the remote or local docker instance.
+Added two variables ```DOCKER_HOSTNAME``` and ```DOCKER_IP_ADDRESS``` to specify the HOST and its IP-ADDRESS subsequently these variables are passed to the telegram message  template, as well as to the connection string to the remote or local docker instance.
 
 The architecture tag was added to the connection string on which the docker engine runs: like amd64, arm and etc.
 
