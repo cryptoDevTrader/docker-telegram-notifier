@@ -10,12 +10,19 @@ Run a container as follows:
 
 ```sh
 # Docker
-docker run -d --env TELEGRAM_NOTIFIER_BOT_TOKEN=token --env TELEGRAM_NOTIFIER_CHAT_ID=chat_id --volume /var/run/docker.sock:/var/run/docker.sock:ro poma/docker-telegram-notifier
+docker run -d --env TELEGRAM_NOTIFIER_BOT_TOKEN=token --env TELEGRAM_NOTIFIER_CHAT_ID=chat_id --volume /var/run/docker.sock:/var/run/docker.sock:ro soulassassin85/docker-telegram-notifier
 
 # Docker Compose
 curl -O https://raw.githubusercontent.com/poma/docker-telegram-notifier/master/docker-compose.yml
 docker-compose up -d
 ```
+## The main difference of this fork
+
+Added two variables DOCKER HOSTNAME and DOCKER IP ADDRESS to specify the HOST and its IP-ADDRESS subsequently these variables are passed to the telegram message  template, as well as to the connection string to the remote or local docker instance.
+
+It looks like this:
+
+https://github.com/SAOPP/docker-telegram-notifier/blob/master/20210120-102335.png
 
 ## Blacklist and Whitelist
 
