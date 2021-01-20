@@ -13,12 +13,14 @@ Run a container as follows:
 docker run -d --env TELEGRAM_NOTIFIER_BOT_TOKEN=token --env TELEGRAM_NOTIFIER_CHAT_ID=chat_id --volume /var/run/docker.sock:/var/run/docker.sock:ro soulassassin85/docker-telegram-notifier
 
 # Docker Compose
-curl -O https://raw.githubusercontent.com/poma/docker-telegram-notifier/master/docker-compose.yml
+curl -O https://raw.githubusercontent.com/soulassassin85/docker-telegram-notifier/master/docker-compose.yml
 docker-compose up -d
 ```
 ## The main difference of this fork
 
-Added two variables DOCKER HOSTNAME and DOCKER IP ADDRESS to specify the HOST and its IP-ADDRESS subsequently these variables are passed to the telegram message  template, as well as to the connection string to the remote or local docker instance.
+You can receive a docker events notification from multiple docker-telegram-notifier instances to your 1 telegram bot.
+
+Added two variables DOCKER_HOSTNAME and DOCKER_IP_ADDRESS to specify the HOST and its IP-ADDRESS subsequently these variables are passed to the telegram message  template, as well as to the connection string to the remote or local docker instance.
 
 It looks like this:
 
@@ -37,4 +39,54 @@ Tutorial on how to generate docker certs can be found [here](https://docs.docker
 
 ## docker-compose
 
+Here is example of stack:
+
+```
+version: 2
+services:
+# local docker instance
+  telegram-notifier-local:
+    image: soulassassin85/docker-telegram-notifier
+    container_name: telegram-notifier-local
+    hostname: telegram-notifier-local
+    environment:
+      - TZ=Europe/Kiev
+      - DOCKER_HOSTNAME=portainer-pve
+      - DOCKER_IP_ADDRESS=192.168.0.30
+      - TELEGRAM_NOTIFIER_BOT_TOKEN=YOUR_BOT_TOKEN_HERE
+      - TELEGRAM_NOTIFIER_CHAT_ID=YOUR_CHAT_ID_HERE
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+# remote docker instance    
+  telegram-notifier-adguard:
+    image: soulassassin85/docker-telegram-notifier
+    container_name: telegram-notifier-adguard
+    hostname: telegram-notifier-adguard
+    environment:
+      - TZ=Europe/Kiev
+      - DOCKER_HOSTNAME=adguard-pve
+      - DOCKER_IP_ADDRESS=192.168.0.19
+      - DOCKER_HOST=tcp://192.168.0.19:2375
+      - TELEGRAM_NOTIFIER_BOT_TOKEN=YOUR_BOT_TOKEN_HERE
+      - TELEGRAM_NOTIFIER_CHAT_ID=YOUR_CHAT_ID_HERE
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+# remote docker instance 
+  telegram-notifier-rpi-zb-gw-stage:
+    image: soulassassin85/docker-telegram-notifier
+    container_name: telegram-notifier-rpi-zb-gw-stage
+    hostname: telegram-notifier-rpi-zb-gw-stage
+    environment:
+      - TZ=Europe/Kiev
+      - DOCKER_HOSTNAME=rpi-zb-gw-stage
+      - DOCKER_IP_ADDRESS=192.168.0.27
+      - DOCKER_HOST=tcp://192.168.0.27:2375
+      - TELEGRAM_NOTIFIER_BOT_TOKEN=YOUR_BOT_TOKEN_HERE
+      - TELEGRAM_NOTIFIER_CHAT_ID=YOUR_CHAT_ID_HERE
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+```
 For docker-compose examples see comments in [docker-compose.yml](./docker-compose.yml) file.
