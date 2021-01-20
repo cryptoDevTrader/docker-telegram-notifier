@@ -22,7 +22,7 @@ Added two variables DOCKER HOSTNAME and DOCKER IP ADDRESS to specify the HOST an
 
 It looks like this:
 
-https://github.com/SAOPP/docker-telegram-notifier/blob/master/20210120-102335.png
+<img src="https://github.com/SAOPP/docker-telegram-notifier/blob/master/20210120-102335.png">
 
 ## Blacklist and Whitelist
 
