@@ -31,15 +31,23 @@ async function sendEventStream() {
 
 async function sendVersion() {
   const version = await docker.version();
-  
+
   let hostDetails = "";
-  if (utils.getEnvVar("DOCKER_HOSTNAME")) {
-    hostDetails = `${utils.getEnvVar("DOCKER_HOSTNAME")} at ${utils.getEnvVar("DOCKER_IP_ADDRESS")} with docker`;
+  if (utils.getEnvVar("DOCKER_HOSTNAME").length > 0) {
+    hostDetails = `${utils.getEnvVar("DOCKER_HOSTNAME")} `;
   }
-  
-  let text = `Connected to ${hostDetails} ${version.Version} ${version.Arch}`;
+
+  if (utils.getEnvVar("DOCKER_IP_ADDRESS").length > 0) {
+    hostDetails += `(${utils.getEnvVar("DOCKER_IP_ADDRESS")}) `;
+  }
+
+  if (hostDetails.length > 0) {
+    hostDetails += `with docker `;
+  }
+
+  const text = `Connected to ${hostDetails}${version.Version} ${version.Arch}`;
   console.log(text, "\n");
-  
+
   await telegram.send(text);
 }
 
