@@ -1,22 +1,64 @@
-version: "2.2"
+version: 2
 
 services:
-  notifier:
-    image: poma/docker-telegram-notifier
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro # for local instance
-      # - ./certs:/certs # for remote instance
+
+# local docker instance notifier
+  telegram-notifier-local:
+    image: soulassassin85/docker-telegram-notifier
+    container_name: telegram-notifier-local
+    hostname: telegram-notifier-local
     environment:
-      # How to create bot: https://core.telegram.org/bots#3-how-do-i-create-a-bot
-      # How to get chat id: https://stackoverflow.com/questions/32423837/telegram-bot-how-to-get-a-group-chat-id/32572159#32572159
-      TELEGRAM_NOTIFIER_BOT_TOKEN:
-      TELEGRAM_NOTIFIER_CHAT_ID:
+      - TZ=Europe/Kiev
+      - DOCKER_HOSTNAME=portainer-pve # name or hostname of your docker instance
+      - DOCKER_IP_ADDRESS=192.168.0.30 # ip address or this local dockere instance
+      - TELEGRAM_NOTIFIER_BOT_TOKEN= # your bot token @ how to create bot: https://core.telegram.org/bots#3-how-do-i-create-a-bot
+      - TELEGRAM_NOTIFIER_CHAT_ID= # your chat id @ how to get chat id: https://stackoverflow.com/questions/32423837/telegram-bot-how-to-get-a-group-chat-id/32572159#32572159
       # optional args
       # ONLY_WHITELIST: true
-      # DOCKER_HOST: tcp://example.com:2376 # http/https is detected by port number
-      # DOCKER_CERT_PATH: /certs # should contain ca.pem, cert.pem, key.pem
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro # local docker volume mount, this is not needed for remote instances
+    # - ./certs:/certs # for remote instance
+    restart: unless-stopped
 
-#  example:
+# first remote docker instance notifier
+  telegram-notifier-one:
+    image: soulassassin85/docker-telegram-notifier
+    container_name: telegram-notifier-one
+    hostname: telegram-notifier-one
+    environment:
+      - TZ=Europe/Kiev
+      - DOCKER_HOSTNAME=one # name or hostname of your docker instance
+      - DOCKER_IP_ADDRESS=192.168.0.19 # ip address or this local dockere instance
+      - DOCKER_HOST=tcp://192.168.0.19:2375 # ip address and port for remote connection to the docker engine, http/https is detected by port number
+      # DOCKER_CERT_PATH: /certs # should contain ca.pem, cert.pem, key.pem if you use ssl connections
+      - TELEGRAM_NOTIFIER_BOT_TOKEN= # your bot token @ how to create bot: https://core.telegram.org/bots#3-how-do-i-create-a-bot
+      - TELEGRAM_NOTIFIER_CHAT_ID= # your chat id @ how to get chat id: https://stackoverflow.com/questions/32423837/telegram-bot-how-to-get-a-group-chat-id/32572159#32572159
+  # volumes: # volume for certs of remote instance for secure connection to the docker engine
+    # - ./certs:/certs # for remote instance
+    restart: unless-stopped
+
+# second remote docker instance notifier
+  telegram-notifier-two:
+    image: soulassassin85/docker-telegram-notifier
+    container_name: telegram-notifier-two
+    hostname: telegram-notifier-two
+    environment:
+      - TZ=Europe/Kiev
+      - DOCKER_HOSTNAME=two
+      - DOCKER_IP_ADDRESS=192.168.0.27
+      - DOCKER_HOST=tcp://192.168.0.27:2375
+      - TELEGRAM_NOTIFIER_BOT_TOKEN=
+      - TELEGRAM_NOTIFIER_CHAT_ID=
+    restart: unless-stopped
+    
+# four ...
+# five ...
+# six ...
+# etc ... :)
+
+#...and ALL notifier instances with the same bot token and your chat id :)
+
+#  example-labels-use:
 #    image: hello-world
 #    labels:
 #       telegram-notifier.monitor: true  # always monitor
