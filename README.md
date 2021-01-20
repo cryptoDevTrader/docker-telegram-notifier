@@ -31,6 +31,11 @@ It looks like this:
 
 <img src="https://github.com/SAOPP/docker-telegram-notifier/blob/master/20210120-102335.png">
 
+## Container tags
+
+The ```master branch``` aka ```latest``` tag
+The ```develop branche``` aka ```dev``` tag
+
 ## Blacklist and Whitelist
 
 You can suppress notifications from certain containers by adding a label `--label telegram-notifier.monitor=false` to them. If you want to receive notifications only from whitelisted containers, set `--env ONLY_WHITELIST=true` environment variable on the notifier instance, and `--label telegram-notifier.monitor=true` label on the containers you want to monitor.
