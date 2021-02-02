@@ -61,7 +61,7 @@ async function healthcheck() {
     await docker.version();
   } catch (e) {
     console.error(e);
-    console.error("Docker is unavailable");
+    console.error("${hostDetails}: Docker is unavailable");
     process.exit(101);
   }
 
@@ -69,7 +69,7 @@ async function healthcheck() {
     console.log(await telegram.check());
   } catch (e) {
     console.error(e);
-    console.error("Telegram API is unavailable");
+    console.error("${hostDetails}: Telegram API is unavailable");
     process.exit(102);
   }
 
