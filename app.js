@@ -32,17 +32,9 @@ async function sendEventStream() {
 async function sendVersion() {
   const version = await docker.version();
 
-  let hostDetails = "";
-  if (utils.getEnvVar("DOCKER_HOSTNAME").length > 0) {
-    hostDetails = `${utils.getEnvVar("DOCKER_HOSTNAME")} `;
-  }
-
-  if (utils.getEnvVar("DOCKER_IP_ADDRESS").length > 0) {
-    hostDetails += `at ${utils.getEnvVar("DOCKER_IP_ADDRESS")} `;
-  }
-
+  let hostDetails = utils.getHostDetails();
   if (hostDetails.length > 0) {
-    hostDetails += `with docker `;
+    hostDetails += ` with docker `;
   }
 
   const text = `Connected to ${hostDetails}${version.Version} ${version.Arch}`;
@@ -61,7 +53,7 @@ async function healthcheck() {
     await docker.version();
   } catch (e) {
     console.error(e);
-    console.error("${hostDetails}: Docker is unavailable");
+    console.error(`${utils.getHostDetails()}: Docker is unavailable`);
     process.exit(101);
   }
 
@@ -69,7 +61,7 @@ async function healthcheck() {
     console.log(await telegram.check());
   } catch (e) {
     console.error(e);
-    console.error("${hostDetails}: Telegram API is unavailable");
+    console.error(`${utils.getHostDetails()}: Telegram API is unavailable`);
     process.exit(102);
   }
 
