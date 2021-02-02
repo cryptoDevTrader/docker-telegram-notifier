@@ -10,12 +10,12 @@ module.exports = {
 
   getHostDetails: function() {
     let hostDetails = "";
-    if (getEnvVar("DOCKER_HOSTNAME").length > 0) {
-      hostDetails = `${getEnvVar("DOCKER_HOSTNAME")} `;
+    if (module.exports.getEnvVar("DOCKER_HOSTNAME").length > 0) {
+      hostDetails = `${module.exports.getEnvVar("DOCKER_HOSTNAME")} `;
     }
   
-    if (getEnvVar("DOCKER_IP_ADDRESS").length > 0) {
-      hostDetails += `at ${getEnvVar("DOCKER_IP_ADDRESS")}`;
+    if (module.exports.getEnvVar("DOCKER_IP_ADDRESS").length > 0) {
+      hostDetails += `at ${module.exports.getEnvVar("DOCKER_IP_ADDRESS")}`;
     }
 
     return hostDetails.trim();
