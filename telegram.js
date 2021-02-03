@@ -17,6 +17,7 @@ class TelegramClient {
     return this.telegram.sendMessage(
         process.env.TELEGRAM_NOTIFIER_CHAT_ID,
         `Error: ${e}`,
+        { parse_mode: 'HTML' }
     );
   }
 
