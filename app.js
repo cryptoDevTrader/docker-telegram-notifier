@@ -71,11 +71,7 @@ async function healthcheck() {
 
 function handleError(e) {
   console.error(`${utils.getHostDetails()}: ${e}`);
-
-  let errMsg = `\n<b>Host:</b> ${utils.getHostDetails()}\n`;
-  errMsg += e;
-
-  telegram.sendError(errMsg).catch(console.error);
+  telegram.sendError(e).catch(console.error);
 }
 
 if (process.argv.includes("healthcheck")) {
