@@ -79,3 +79,43 @@ if (process.argv.includes("healthcheck")) {
 } else {
   main().catch(handleError);
 }
+
+const exitCodes = {};
+
+async function handleExit(exitCode) {
+  if (!exitCodes[exitCode]) {
+    exitCodes[exitCode] = true;
+  } else {
+    // Don't process same exit code more than once
+    return;
+  }
+
+  if (exitCode || exitCode === 0) {
+      if (exitCode.stack) {
+          console.error(exitCode.stack);
+      } else {
+          console.error(`Shutting down: ${exitCode}`);
+      }
+  }
+
+  const version = await docker.version();
+
+  let hostDetails = utils.getHostDetails();
+  if (hostDetails.length > 0) {
+    hostDetails += ` with docker `;
+  }
+
+  const text = `Shutting down ${hostDetails}${version.Version} ${version.Arch}. Received ${exitCode}.`;
+  console.log(text, "\n");
+
+  await telegram.send(text);
+
+  process.exit(0);
+}
+
+// Exit gracefully
+process.on('exit', handleExit.bind(this));
+process.on('SIGINT', handleExit.bind(this));
+process.on('SIGUSR1', handleExit.bind(this));
+process.on('SIGUSR2', handleExit.bind(this));
+process.on('uncaughtException', handleExit.bind(this));
