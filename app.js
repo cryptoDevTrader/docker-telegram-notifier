@@ -118,4 +118,5 @@ process.on('exit', handleExit.bind(this));
 process.on('SIGINT', handleExit.bind(this));
 process.on('SIGUSR1', handleExit.bind(this));
 process.on('SIGUSR2', handleExit.bind(this));
+process.on('SIGTERM', handleExit.bind(this));
 process.on('uncaughtException', handleExit.bind(this));
