@@ -98,12 +98,9 @@ async function handleExit(exitCode) {
       }
   }
 
-  let hostDetails = utils.getHostDetails();
-  if (hostDetails.length > 0) {
-    hostDetails += ` with docker `;
-  }
+  const hostDetails = utils.getHostDetails();
+  const text = `telegram-notifier shutting down on ${hostDetails}. Received ${exitCode}.`;
 
-  const text = `Shutting down ${hostDetails}. Received ${exitCode}.`;
   console.log(text, "\n");
 
   await telegram.send(text);
