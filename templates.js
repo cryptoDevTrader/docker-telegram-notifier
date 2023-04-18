@@ -7,6 +7,9 @@ module.exports = {
     container_die: e =>
         `<b>Host:</b> ${utils.getEnvVar("DOCKER_HOSTNAME")}\n<b>IP:</b> ${utils.getEnvVar("DOCKER_IP_ADDRESS")}\n<b>Container:</b> ${e.Actor.Attributes.name}\n<b>Image:</b> ${e.Actor.Attributes.image}\n<b>Has been stopped</b>\n<b>Exit Code:</b> ${e.Actor.Attributes.exitCode}`,
 
+    container_kill: e =>
+        `<b>Host:</b> ${utils.getEnvVar("DOCKER_HOSTNAME")}\n<b>IP:</b> ${utils.getEnvVar("DOCKER_IP_ADDRESS")}\n<b>Container:</b> ${e.Actor.Attributes.name}\n<b>Image:</b> ${e.Actor.Attributes.image}\n<b>Has been killed</b>\n<b>Exit Code:</b> ${e.Actor.Attributes.exitCode}`,
+
     'container_health_status: healthy': e =>
         `Status <b>Healthy</b> for <b>${e.Actor.Attributes.name}</b> at ${utils.getEnvVar("DOCKER_HOSTNAME")}@${utils.getEnvVar("DOCKER_IP_ADDRESS")}`,
 

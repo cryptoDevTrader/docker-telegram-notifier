@@ -97,15 +97,6 @@ async function handleExit(exitCode) {
           console.error(`Shutting down: ${exitCode}`);
       }
   }
-
-  const hostDetails = utils.getHostDetails();
-  const text = `telegram-notifier shutting down on ${hostDetails}. Received ${exitCode}.`;
-
-  console.log(text, "\n");
-
-  await telegram.send(text);
-
-  process.exit(0);
 }
 
 // Exit gracefully
